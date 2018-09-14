@@ -5,7 +5,6 @@ services:
 - docker
 install:
 - docker build -t max-base .
-- docker run -it max-base
 - docker tag max-base codait/max-base
 before_script:
 - pip install pytest pycurl
