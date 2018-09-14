@@ -17,4 +17,4 @@ jobs:
     script: |
       echo "TRAVIS_BRANCH=$TRAVIS_BRANCH TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
       curl -LO --retry 3 https://raw.github.com/mernst/plume-lib/master/bin/trigger-travis.sh
-      sh trigger-travis.sh IBM MAX-Image-Segmenter $TRAVIS_ACCESS_TOKEN
+      sh trigger-travis.sh --pro IBM MAX-Image-Segmenter $TRAVIS_ACCESS_TOKEN
