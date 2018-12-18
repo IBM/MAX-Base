@@ -1,2 +1,3 @@
 flask-restplus==0.11.0
 flask-cors
+maxfw==0.1
