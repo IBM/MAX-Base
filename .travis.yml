@@ -1,0 +1,16 @@
+language: python
+python:
+  - 3.6
+
+services:
+  - docker
+
+install:
+  - docker build -t max-base .
+
+before_script:
+  - docker run -it --rm -d -p 5000:5000 max-base
+  - sleep 10
+
+script:
+  - docker ps | grep max-base
