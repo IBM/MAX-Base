@@ -13,4 +13,4 @@ before_script:
   - sleep 10
 
 script:
-  - docker ps | grep max-base-foo
+  - docker ps | grep max-base
