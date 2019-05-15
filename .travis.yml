@@ -1,4 +1,5 @@
 language: python
+
 python:
   - 3.6
 
@@ -43,10 +44,11 @@ script:
 
 after_success:
   - if [[ "$IMAGE" != "max-base" ]]; then
-    docker login -u "$REPO_USER" -p "$REPO_PASS";
-    docker push "$REPO"/"$IMAGE":"$ARCH"-latest;
-    docker pull "$REPO"/"$IMAGE":ppc64le-latest;
-    docker pull "$REPO"/"$IMAGE":x86_64-latest;
-    docker manifest create "$REPO"/"$IMAGE":latest "$REPO"/"$IMAGE":ppc64le-latest "$REPO"/"$IMAGE":x86_64-latest;
-    docker manifest push "$REPO"/"$IMAGE":latest
-  fi
+      docker login -u "$REPO_USER" -p "$REPO_PASS";
+      docker push "$REPO"/"$IMAGE":"$ARCH"-latest;
+      docker pull "$REPO"/"$IMAGE":ppc64le-latest;
+      docker pull "$REPO"/"$IMAGE":x86_64-latest;
+      docker manifest create "$REPO"/"$IMAGE":latest "$REPO"/"$IMAGE":ppc64le-latest "$REPO"/"$IMAGE":x86_64-latest;
+      docker manifest push "$REPO"/"$IMAGE":latest;
+    fi
+
