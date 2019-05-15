@@ -4,10 +4,8 @@ SHELL ["/bin/bash", "-c"]
 WORKDIR /workspace
 RUN mkdir assets
 
-COPY requirements.txt /workspace
+COPY . .
 RUN cd /opt/anaconda3/bin && \
         source activate base && \
 	pip install --upgrade pip &&\
         pip install -r /workspace/requirements.txt
-
-COPY . /workspace
