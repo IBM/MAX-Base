@@ -6,6 +6,15 @@ os:
   - linux
   - linux-ppc64le
 
+env:
+  - DOCKERFILE=Dockerfile IMAGE=max-base
+  - DOCKERFILE=Dockerfile.pai IMAGE=max-base-powerai
+
+matrix:
+  exclude:
+  - env: DOCKERFILE=Dockerfile IMAGE=max-base
+    os: linux-ppc64le
+
 dist: xenial
 
 services:
@@ -23,19 +32,21 @@ before_install:
   - sudo service docker restart
 
 install:
-  - docker build -f Dockerfile.pai -t "$REPO"/max-base-powerai:"$ARCH"-latest .
+  - docker build -f "$DOCKERFILE" -t "$REPO"/"$IMAGE":"$ARCH"-latest .
 
 before_script:
-  - docker run -it --rm -d -p 5000:5000 "$REPO"/max-base-powerai:"$ARCH"-latest
+  - docker run -it --rm -d -p 5000:5000 "$REPO"/"$IMAGE":"$ARCH"-latest
   - sleep 10
 
 script:
-  - docker ps | grep max-base-powerai
+  - docker ps | grep "$IMAGE"
 
 after_success:
-  - docker login -u "$REPO_USER" -p "$REPO_PASS"
-  - docker push "$REPO"/max-base-powerai:"$ARCH"-latest
-  - docker pull "$REPO"/max-base-powerai:ppc64le-latest
-  - docker pull "$REPO"/max-base-powerai:x86_64-latest
-  - docker manifest create "$REPO"/max-base-powerai:latest "$REPO"/max-base-powerai:ppc64le-latest "$REPO"/max-base-powerai:x86_64-latest
-  - docker manifest push "$REPO"/max-base-powerai:latest
+  - if [[ "$IMAGE" != "max-base" ]]; then
+    docker login -u "$REPO_USER" -p "$REPO_PASS";
+    docker push "$REPO"/"$IMAGE":"$ARCH"-latest;
+    docker pull "$REPO"/"$IMAGE":ppc64le-latest;
+    docker pull "$REPO"/"$IMAGE":x86_64-latest;
+    docker manifest create "$REPO"/"$IMAGE":latest "$REPO"/"$IMAGE":ppc64le-latest "$REPO"/"$IMAGE":x86_64-latest;
+    docker manifest push "$REPO"/"$IMAGE":latest
+  fi
