@@ -43,7 +43,7 @@ script:
   - docker ps | grep "$IMAGE"
 
 after_success:
-  - if [[ "$IMAGE" != "max-base" ]]; then
+  - if [[ "$IMAGE" != "max-base" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
       docker login -u "$REPO_USER" -p "$REPO_PASS";
       docker push "$REPO"/"$IMAGE":"$ARCH"-latest;
       docker pull "$REPO"/"$IMAGE":ppc64le-latest;
