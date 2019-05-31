@@ -14,19 +14,19 @@ before_install:
     fi
 
 install:
-  - docker build -f "$DOCKERFILE" -t mborgard/max-base:"$IMAGE"-"$ARCH"-"$VERSION" .
+  - docker build -f "$DOCKERFILE" -t codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION" .
 
 before_script:
-  - docker run -it --rm -d -p 5000:5000 mborgard/max-base:"$IMAGE"-"$ARCH"-"$VERSION"
+  - docker run -it --rm -d -p 5000:5000 codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION"
   - sleep 10
 
 script:
-  - docker ps | grep ajbozarth/max-base:"$IMAGE"-"$ARCH"-"$VERSION"
+  - docker ps | grep codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION"
 
 after_success:
   - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
       echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
-      docker push ajbozarth/max-base:"$IMAGE"-"$ARCH"-"$VERSION";
+      docker push codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION";
     fi
 
 matrix:
@@ -48,8 +48,8 @@ matrix:
     script:
       - export DOCKER_CLI_EXPERIMENTAL=enabled
       - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
-      - docker pull mborgard/max-base:powerai-ppc64le-"$VERSION";
-      - docker pull mborgard/max-base:powerai-x86_64-"$VERSION";
-      - docker manifest create mborgard/max-base:powerai-"$VERSION" mborgard/max-base:powerai-ppc64le-"$VERSION" mborgard/max-base:powerai-x86_64-"$VERSION";
-      - docker manifest push mborgard/max-base:powerai-"$VERSION";
+      - docker pull codait/max-base:powerai-ppc64le-"$VERSION";
+      - docker pull codait/max-base:powerai-x86_64-"$VERSION";
+      - docker manifest create codait/max-base:powerai-"$VERSION" codait/max-base:powerai-ppc64le-"$VERSION" codait/max-base:powerai-x86_64-"$VERSION";
+      - docker manifest push codait/max-base:powerai-"$VERSION";
     after_success:
