@@ -1,0 +1,11 @@
+FROM ibmcom/powerai:1.6.0-base-ubuntu18.04-py3
+SHELL ["/bin/bash", "-c"]
+
+WORKDIR /workspace
+RUN mkdir assets
+
+COPY . .
+RUN cd /opt/anaconda3/bin && \
+        source activate base && \
+	pip install --upgrade pip &&\
+        pip install -r /workspace/requirements.txt
