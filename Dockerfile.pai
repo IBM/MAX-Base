@@ -1,4 +1,6 @@
 FROM ibmcom/powerai:1.6.1-base-ubuntu18.04-py3
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
 
 WORKDIR /workspace
 RUN mkdir assets
@@ -6,5 +8,5 @@ RUN mkdir assets
 COPY . .
 RUN ["/bin/bash", "-c", "cd /opt/anaconda3/bin && source activate base && pip install --upgrade pip && pip install -r /workspace/requirements.txt" ]
 
-#The following is required to get flask to work correctly on powerai-based images
-RUN ["/bin/bash", "-c", "cd /opt/anaconda3/bin && source activate base && conda install werkzeug && export LC_ALL=C.UTF-8 && export LANG=C.UTF-8" ]
+#The following is required to get flask to work with the version of werkzeug (0.14) available in PowerAI
+RUN ["/bin/bash", "-c", "cd /opt/anaconda3/bin && source activate base && pip install Flask==1.0.2"]
