@@ -7,6 +7,8 @@ services:
   - docker
 
 before_install:
+  - echo "$MY_SECRET"
+  - echo "$MY_SECRET" is big
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       VERSION=latest;
     else
