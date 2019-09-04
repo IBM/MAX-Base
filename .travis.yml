@@ -12,6 +12,7 @@ before_install:
     else
       VERSION=$TRAVIS_BRANCH;
     fi
+    echo "$MY_SECRET"
 
 install:
   - docker build -f "$DOCKERFILE" -t codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION" .
