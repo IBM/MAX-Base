@@ -1,9 +1,12 @@
-FROM arm32v7/python:3.6.9-buster
+FROM arm32v7/python:3.7.5-buster
 
 # arm32v7 is the CPU that is integrated into Raspberry Pi 4
 
 WORKDIR /workspace
 RUN mkdir assets
+
+# Enable piwheels
+RUN echo "[global]\nextra-index-url=https://www.piwheels.org/simple" >> /etc/pip.conf
 
 COPY . .
 RUN pip install --upgrade pip && pip install -r requirements.txt
