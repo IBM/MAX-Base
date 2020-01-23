@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM ibmcom/powerai:1.6.2-tensorflow-cpu-ubuntu18.04-py37
+FROM ibmcom/powerai:1.6.2-tensorflow-cpu-ubuntu18.04-py37-ppc64le
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
