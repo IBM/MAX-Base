@@ -16,7 +16,7 @@
 
 FROM arm32v7/python:3.7.6-buster
 
-RUN apt-get update && apt-get install -y curl e2fsprogs git perl wget libgcrypt20 openssl patch && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 # arm32v7 is the CPU that is integrated into Raspberry Pi 4
 
