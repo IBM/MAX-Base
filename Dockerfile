@@ -16,7 +16,7 @@
 
 FROM continuumio/miniconda3:4.7.12
 
-RUN apt-get update && apt-get install -y curl e2fsprogs git perl wget libgcrypt20 openssl patch && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
 RUN mkdir assets
