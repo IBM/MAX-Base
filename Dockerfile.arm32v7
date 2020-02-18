@@ -16,6 +16,9 @@
 
 FROM arm32v7/python:3.7.6-buster
 
+# Upgrade all packages to meet security criteria
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+
 # arm32v7 is the CPU that is integrated into Raspberry Pi 4
 
 WORKDIR /workspace

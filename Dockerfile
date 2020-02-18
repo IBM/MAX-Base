@@ -16,6 +16,9 @@
 
 FROM continuumio/miniconda3:4.7.12
 
+# Upgrade all packages to meet security criteria
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /workspace
 RUN mkdir assets
 
