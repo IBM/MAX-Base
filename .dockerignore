@@ -1,2 +1,5 @@
+.dockerignore
+.git*
 .idea/
-.git/
+Dockerfile*
+README.*
