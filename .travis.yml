@@ -72,6 +72,5 @@ matrix:
       - echo "$DOCKER_PASS_QUAY" | docker login -u "$DOCKER_USER_QUAY" --password-stdin quay.io;
       - docker pull quay.io/codait/max-base:powerai-ppc64le-"$VERSION";
       - docker pull quay.io/codait/max-base:powerai-x86_64-"$VERSION";
-      - docker manifest create quay.io/codait/max-base:powerai-"$VERSION" quay.io/codait/max-base:powerai-ppc64le-"$VERSION" quay.io/codait/max-base:powerai-x86_64-"$VERSION";
-      - docker manifest push quay.io/codait/max-base:powerai-"$VERSION";
+      - docker manifest create quay.io/codait/max-base:powerai-ppc64le-"$VERSION" quay.io/codait/max-base:powerai-x86_64-"$VERSION";
     after_success:
