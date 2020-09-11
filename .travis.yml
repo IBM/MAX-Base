@@ -30,19 +30,20 @@ before_install:
     fi
 
 install:
-  - docker build -f "$DOCKERFILE" -t codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION" .
+  - docker build -f "$DOCKERFILE" -t quay.io/codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION" .
 
 before_script:
-  - docker run -it --rm -d -p 5000:5000 codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION"
+  - docker run -it --rm -d -p 5000:5000 quay.io/codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION"
   - sleep 10
 
 script:
-  - docker ps | grep codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION"
+  - docker ps | grep quay.io/codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION"
 
+#   - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
 after_success:
-  - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
-      echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
-      docker push codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION";
+  - if [[ 1 == 1 ]]; then
+      echo "$DOCKER_PASS_QUAY" | docker login -u "$DOCKER_USER_QUAY" --password-stdin quay.io;
+      docker push quay.io/codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION";
     fi
 
 matrix:
@@ -69,9 +70,9 @@ matrix:
     before_script:
     script:
       - export DOCKER_CLI_EXPERIMENTAL=enabled
-      - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin;
-      - docker pull codait/max-base:powerai-ppc64le-"$VERSION";
-      - docker pull codait/max-base:powerai-x86_64-"$VERSION";
-      - docker manifest create codait/max-base:powerai-"$VERSION" codait/max-base:powerai-ppc64le-"$VERSION" codait/max-base:powerai-x86_64-"$VERSION";
-      - docker manifest push codait/max-base:powerai-"$VERSION";
+      - echo "$DOCKER_PASS_QUAY" | docker login -u "$DOCKER_USER_QUAY" --password-stdin quay.io;
+      - docker pull quay.io/codait/max-base:powerai-ppc64le-"$VERSION";
+      - docker pull quay.io/codait/max-base:powerai-x86_64-"$VERSION";
+      - docker manifest create quay.io/codait/max-base:powerai-"$VERSION" quay.io/codait/max-base:powerai-ppc64le-"$VERSION" quay.io/codait/max-base:powerai-x86_64-"$VERSION";
+      - docker manifest push quay.io/codait/max-base:powerai-"$VERSION";
     after_success:
