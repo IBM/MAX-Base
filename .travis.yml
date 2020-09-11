@@ -39,9 +39,8 @@ before_script:
 script:
   - docker ps | grep quay.io/codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION"
 
-#   - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
 after_success:
-  - if [[ 1 == 1 ]]; then
+  - if [[ "$IMAGE" != "test" && "$TRAVIS_PULL_REQUEST" == "false" ]] && [[ "$TRAVIS_BRANCH" == "master" || "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then
       echo "$DOCKER_PASS_QUAY" | docker login -u "$DOCKER_USER_QUAY" --password-stdin quay.io;
       docker push quay.io/codait/max-base:"$IMAGE"-"$ARCH"-"$VERSION";
     fi
