@@ -20,7 +20,7 @@ ENV LANG=C.UTF-8
 
 RUN sudo install -g pwrai -o pwrai -d /workspace
 
-RUN useradd --create-home max
+RUN sudo useradd --create-home max
 WORKDIR /home/max
 RUN cd /home/max && mkdir assets
 
