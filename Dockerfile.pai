@@ -22,7 +22,7 @@ RUN sudo install -g pwrai -o pwrai -d /workspace
 
 RUN sudo useradd --create-home max
 WORKDIR /home/max
-RUN cd /home/max && mkdir assets
+RUN cd /home/max && sudo -u max mkdir assets
 
 COPY . .
 RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install --upgrade pip && pip install -r /workspace/requirements.txt" ]
