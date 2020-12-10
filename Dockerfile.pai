@@ -18,14 +18,15 @@ FROM ibmcom/powerai:1.6.2-base-ubuntu18.04-py37
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-RUN sudo install -g pwrai -o pwrai -d /workspace
-
 RUN sudo useradd --create-home max
 WORKDIR /home/max
+
+RUN sudo install -g pwrai -o pwrai -d /home/max/
+
 RUN cd /home/max && sudo mkdir assets && sudo chown -R max:max /home/max
 
-COPY . .
-RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install --upgrade pip && pip install -r requirements.txt" ]
+COPY . /home/max/
+RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install --upgrade pip && pip install -r /home/max/requirements.txt" ]
 
 #The following is required to get flask to work with the version of werkzeug (0.14) available in PowerAI
 RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install Flask==1.0.2"]
