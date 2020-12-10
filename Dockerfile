@@ -19,8 +19,12 @@ FROM continuumio/miniconda3:4.7.12
 # Upgrade all packages to meet security criteria
 RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /workspace
-RUN mkdir assets
+
+RUN useradd --create-home max
+WORKDIR /home/max
+RUN cd /home/max && mkdir assets
 
 COPY . .
 RUN pip install --upgrade pip && pip install -r requirements.txt
+
+USER max
