@@ -21,11 +21,14 @@ RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 # arm32v7 is the CPU that is integrated into Raspberry Pi 4
 
-WORKDIR /workspace
-RUN mkdir assets
+RUN useradd --create-home max
+WORKDIR /home/max
+RUN cd /home/max && mkdir assets
 
 # Enable piwheels
 RUN echo "[global]\nextra-index-url=https://www.piwheels.org/simple" >> /etc/pip.conf
 
 COPY . .
 RUN pip install --upgrade pip && pip install -r requirements.txt
+
+USER max
