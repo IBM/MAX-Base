@@ -17,11 +17,11 @@
 FROM arm32v7/python:3.7.6-buster
 
 # Upgrade all packages to meet security criteria
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install sudo && rm -rf /var/lib/apt/lists/*
 
 # arm32v7 is the CPU that is integrated into Raspberry Pi 4
 
-RUN useradd --create-home max
+RUN useradd --create-home max && echo "max ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 WORKDIR /home/max
 RUN cd /home/max && mkdir assets
 
