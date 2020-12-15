@@ -22,7 +22,7 @@ RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 RUN useradd --create-home max
 WORKDIR /home/max
-RUN cd /home/max && mkdir assets
+RUN mkdir assets
 
 COPY . .
 RUN pip install --upgrade pip && pip install -r requirements.txt

@@ -25,8 +25,8 @@ RUN sudo install -g pwrai -o pwrai -d /home/max/
 
 RUN cd /home/max && sudo mkdir assets && sudo chown -R max:max /home/max
 
-COPY . /home/max/
-RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install --upgrade pip && pip install -r /home/max/requirements.txt" ]
+COPY . .
+RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install --upgrade pip && pip install -r ./requirements.txt" ]
 
 #The following is required to get flask to work with the version of werkzeug (0.14) available in PowerAI
 RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install Flask==1.0.2"]
