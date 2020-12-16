@@ -17,10 +17,12 @@
 FROM continuumio/miniconda3:4.7.12
 
 # Upgrade all packages to meet security criteria
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install sudo && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /workspace
+RUN useradd --create-home max && echo "max ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN chown -R max:max /opt/conda
+USER max
+WORKDIR /home/max
 RUN mkdir assets
-
 COPY . .
 RUN pip install --upgrade pip && pip install -r requirements.txt

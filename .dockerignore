@@ -1,3 +1,4 @@
 .git*
 .idea/
 README.*
+.travis.yml
