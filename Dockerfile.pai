@@ -22,8 +22,21 @@ RUN sudo install -g pwrai -o pwrai -d /workspace
 WORKDIR /workspace
 RUN mkdir assets
 
+# Dependencies for building NumPy and Pillow (Prebuilt NumPy and Pillow are not available for ppc)
+RUN sudo apt-get update && sudo apt-get install -y \
+      build-essential \
+      # NumPy
+      gfortran \
+      libblas-dev \
+      liblapack-dev \
+      # Pillow
+      libjpeg-dev \
+      zlib1g-dev \
+      && sudo rm -rf /var/lib/apt/lists/*
+
 COPY . .
-RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install --upgrade pip && pip install -r /workspace/requirements.txt" ]
+# Cython is required for building NumPy
+RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install --upgrade pip && pip install Cython --install-option='--no-cython-compile' && pip install -r /workspace/requirements.txt" ]
 
 #The following is required to get flask to work with the version of werkzeug (0.14) available in PowerAI
 RUN ["/bin/bash", "-c", "cd /opt/anaconda/bin && source activate base && pip install Flask==1.0.2"]
