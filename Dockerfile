@@ -1,5 +1,5 @@
 #
-# Copyright 2018-2020 IBM Corp. All Rights Reserved.
+# Copyright 2018-2021 IBM Corp. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM continuumio/miniconda3:4.7.12
+FROM continuumio/miniconda3:4.9.2
 
 # Upgrade all packages to meet security criteria
 RUN apt-get update && apt-get upgrade -y && apt-get install sudo && rm -rf /var/lib/apt/lists/*
