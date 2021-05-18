@@ -1,4 +1,4 @@
-flask-cors==3.0.9
+flask-cors==3.0.10
 flask-restx==0.3.0
 # The following line is a hack: flask-restx doesn't work with flask 2.0. Once flask-restx fixed the issue, the following line should be removed
 flask>=1.1.2,<2.0
