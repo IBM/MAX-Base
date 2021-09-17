@@ -25,5 +25,5 @@ USER max
 WORKDIR /home/max
 RUN mkdir assets
 COPY . .
-RUN conda install python==3.7.10
+RUN conda install python==3.7.11
 RUN pip install --upgrade pip && pip install -r requirements.txt
