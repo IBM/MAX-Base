@@ -16,6 +16,8 @@
 
 FROM continuumio/miniconda3:4.10.3
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Upgrade all packages to meet security criteria
 RUN apt-get update && apt-get upgrade -y && apt-get install sudo && rm -rf /var/lib/apt/lists/*
 
