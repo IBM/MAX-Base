@@ -1,4 +1,4 @@
 flask-cors==3.0.10
 flask-restx==0.5.1
-flask==2.0.1
+flask==2.2.3
 maxfw==1.1.6
