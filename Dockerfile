@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM continuumio/miniconda3:4.10.3
+FROM continuumio/miniconda3:4.12.0
 
 # Upgrade all packages to meet security criteria
 RUN apt-get update && apt-get upgrade -y && apt-get install sudo && rm -rf /var/lib/apt/lists/*
